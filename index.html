@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="fr" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf6f3">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1416">
+<meta name="robots" content="noindex">
+<meta name="google" content="notranslate">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Studio 158">
+<title>Studio 158 · Planning</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fbf6f3; --card: #ffffff; --ink: #2b1d20; --muted: #85707a; --line: #eadfdc;
+  --accent: #9b1c31; --accent-ink: #ffffff; --soft: #f6e6e6; --soft-ink: #7a1527;
+  --ok: #2f7d55; --ok-soft: #e3f2e9; --warn: #a8670c; --warn-soft: #fbefd9; --err: #b3261e; --err-soft: #fbe3e1;
+  --info: #4a5bb0; --info-soft: #e7eafa;
+  --shadow: 0 1px 2px rgba(60, 20, 30, .06), 0 4px 16px rgba(60, 20, 30, .06);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1416; --card: #271c1f; --ink: #f4e9ea; --muted: #b19ca3; --line: #3a2b2f;
+    --accent: #e0566c; --accent-ink: #1c1416; --soft: #3a2328; --soft-ink: #f3a9b5;
+    --ok: #6fcf9a; --ok-soft: #1f3529; --warn: #f0b45a; --warn-soft: #3b2e19; --err: #ff8a80; --err-soft: #3d2120;
+    --info: #9fb0ff; --info-soft: #252b47;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1c1416; --card: #271c1f; --ink: #f4e9ea; --muted: #b19ca3; --line: #3a2b2f;
+  --accent: #e0566c; --accent-ink: #1c1416; --soft: #3a2328; --soft-ink: #f3a9b5;
+  --ok: #6fcf9a; --ok-soft: #1f3529; --warn: #f0b45a; --warn-soft: #3b2e19; --err: #ff8a80; --err-soft: #3d2120;
+  --info: #9fb0ff; --info-soft: #252b47; --shadow: none; color-scheme: dark;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 Nunito, system-ui, sans-serif; padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+[hidden] { display: none !important; }
+button, input, textarea, select { font: inherit; color: inherit; }
+img { max-width: 100%; display: block; }
+.wrap { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+
+header.top { padding: 18px 0 6px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+header.top h1 { margin: 0; font: 28px/1.1 "DM Serif Display", Georgia, serif; letter-spacing: .2px; }
+header.top h1 small { display: block; font: 700 12px/1.4 Nunito, sans-serif; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; margin-top: 4px; }
+.sync { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+h2.sec { font: 20px/1.2 "DM Serif Display", Georgia, serif; margin: 22px 0 10px; }
+.sub { color: var(--muted); font-size: 13px; margin: -4px 0 12px; }
+
+/* Barre d'onglets */
+nav.tabs { position: fixed; z-index: 20; left: 0; right: 0; bottom: 0; background: var(--card); border-top: 1px solid var(--line); padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: center; }
+nav.tabs .in { display: flex; width: 100%; max-width: 560px; }
+nav.tabs button { flex: 1; border: 0; background: none; padding: 6px 2px; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 11px; font-weight: 700; color: var(--muted); position: relative; cursor: pointer; }
+nav.tabs button .ic { font-size: 20px; line-height: 1; filter: grayscale(1); opacity: .7; }
+nav.tabs button[aria-selected="true"] { color: var(--accent); }
+nav.tabs button[aria-selected="true"] .ic { filter: none; opacity: 1; }
+.badge { position: absolute; top: 0; left: calc(50% + 6px); background: var(--accent); color: var(--accent-ink); font-size: 10px; font-weight: 800; min-width: 17px; height: 17px; border-radius: 9px; display: grid; place-items: center; padding: 0 4px; }
+
+/* Cartes de post */
+.post { background: var(--card); border-radius: 18px; box-shadow: var(--shadow); border: 1px solid var(--line); overflow: hidden; margin-bottom: 18px; }
+.post .ph { position: relative; aspect-ratio: 4 / 5; background: var(--soft); }
+.post .ph img { width: 100%; height: 100%; object-fit: cover; }
+.post .ph .none { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-weight: 700; }
+.post .chips { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { display: inline-flex; align-items: center; gap: 4px; background: rgba(255, 255, 255, .92); color: #2b1d20; font-size: 12px; font-weight: 800; padding: 4px 9px; border-radius: 99px; }
+.post .bd { padding: 14px 16px 16px; }
+.when { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-weight: 800; }
+.linkbtn { border: 0; background: none; color: var(--accent); font-weight: 800; font-size: 13px; padding: 4px 0; cursor: pointer; }
+.caption { white-space: pre-wrap; margin: 10px 0 0; font-size: 14.5px; overflow-wrap: anywhere; }
+.caption.clamp { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+.note { margin-top: 12px; border-radius: 12px; padding: 10px 12px; font-size: 13.5px; }
+.note b { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 2px; }
+.note.info { background: var(--info-soft); color: var(--info); }
+.note.warn { background: var(--warn-soft); color: var(--warn); }
+.note.err { background: var(--err-soft); color: var(--err); }
+.note.ok { background: var(--ok-soft); color: var(--ok); }
+.note.soft { background: var(--soft); color: var(--soft-ink); }
+.actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 14px; }
+.actions.two { grid-template-columns: 1fr 1fr; }
+.actions .btn { white-space: nowrap; padding: 11px 6px; font-size: 13.5px; gap: 4px; }
+.actions.one { grid-template-columns: 1fr; }
+.btn { border: 0; border-radius: 12px; padding: 11px 10px; font-weight: 800; font-size: 14px; cursor: pointer; background: var(--soft); color: var(--soft-ink); display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.ok { background: var(--ok); color: #fff; }
+.btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+.btn:disabled { opacity: .5; }
+.pill { display: inline-block; font-size: 11.5px; font-weight: 800; padding: 3px 9px; border-radius: 99px; white-space: nowrap; }
+.pill.a_valider { background: var(--warn-soft); color: var(--warn); }
+.pill.a_retravailler { background: var(--info-soft); color: var(--info); }
+.pill.valide { background: var(--ok-soft); color: var(--ok); }
+.pill.publie { background: var(--soft); color: var(--soft-ink); }
+.pill.erreur { background: var(--err-soft); color: var(--err); }
+.pill.refuse { background: var(--line); color: var(--muted); }
+
+/* Formulaires */
+.f { display: flex; flex-direction: column; gap: 5px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.inp { width: 100%; border: 1px solid var(--line); background: var(--bg); border-radius: 12px; padding: 11px 12px; font-size: 16px; color: var(--ink); }
+textarea.inp { min-height: 96px; resize: vertical; line-height: 1.45; }
+.row { display: flex; gap: 10px; }
+.row > * { flex: 1; }
+.edit { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 14px; background: var(--bg); border: 1px dashed var(--line); }
+.quick { display: flex; flex-wrap: wrap; gap: 6px; }
+.quick button { border: 1px solid var(--line); background: var(--card); border-radius: 99px; padding: 6px 11px; font-size: 13px; font-weight: 700; cursor: pointer; }
+.quick button.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.err { color: var(--err); font-size: 13px; font-weight: 700; }
+
+/* Planning */
+.week { margin-bottom: 18px; }
+.week h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); margin: 0 0 8px; }
+.item { display: flex; gap: 12px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 8px; margin-bottom: 8px; cursor: pointer; width: 100%; text-align: left; }
+.item .th { width: 52px; height: 65px; border-radius: 9px; background: var(--soft); flex: none; overflow: hidden; display: grid; place-items: center; font-size: 22px; }
+.item .th img { width: 100%; height: 100%; object-fit: cover; }
+.item .tx { flex: 1; min-width: 0; }
+.item .t1 { font-weight: 800; }
+.item .t2 { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ev { display: flex; gap: 10px; align-items: center; padding: 8px 12px; border-radius: 12px; background: var(--soft); color: var(--soft-ink); font-size: 13.5px; font-weight: 700; margin-bottom: 8px; }
+.ev .e { font-size: 18px; }
+.ev.idea { background: var(--info-soft); color: var(--info); }
+.empty { text-align: center; color: var(--muted); padding: 34px 12px; }
+.empty .big { font-size: 40px; margin-bottom: 6px; }
+
+/* Idées et réglages */
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px; margin-bottom: 12px; }
+.list { display: flex; flex-direction: column; }
+.li { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.li:last-child { border-bottom: 0; }
+.li .e { font-size: 20px; width: 26px; text-align: center; flex: none; }
+.li .tx { flex: 1; min-width: 0; }
+.li .t1 { font-weight: 800; }
+.li .t2 { font-size: 13px; color: var(--muted); }
+.x { border: 0; background: none; color: var(--muted); font-size: 18px; padding: 2px 6px; cursor: pointer; }
+.seg { display: flex; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 3px; gap: 3px; }
+.seg button { flex: 1; border: 0; background: none; border-radius: 9px; padding: 9px 6px; font-weight: 800; font-size: 13.5px; cursor: pointer; color: var(--muted); }
+.seg button.on { background: var(--card); color: var(--accent); box-shadow: var(--shadow); }
+.slot { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+.slot select, .slot input { flex: 1; }
+
+/* Feuille (détail d'un post) */
+.sheet { position: fixed; inset: 0; z-index: 30; background: rgba(20, 8, 12, .45); display: flex; align-items: flex-end; justify-content: center; }
+.sheet .pan { background: var(--bg); width: 100%; max-width: 560px; max-height: 92vh; overflow: auto; border-radius: 22px 22px 0 0; padding: 10px 16px calc(20px + env(safe-area-inset-bottom, 0px)); }
+.sheet .grab { width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: 0 auto 10px; }
+.sheet .close { display: flex; justify-content: flex-end; }
+
+.toast { position: fixed; z-index: 40; left: 50%; transform: translateX(-50%); bottom: calc(86px + env(safe-area-inset-bottom, 0px)); width: min(92vw, 420px); background: var(--ink); color: var(--bg); border-radius: 14px; padding: 11px 14px; font-weight: 700; font-size: 14px; box-shadow: var(--shadow); }
+
+/* Écran de connexion (backend.js) */
+.login { position: fixed; inset: 0; z-index: 50; background: var(--bg); display: flex; align-items: center; justify-content: center; padding: 24px 16px; }
+.loginform { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 14px; }
+.loginform h1 { margin: 0; font: 34px/1.1 "DM Serif Display", Georgia, serif; text-align: center; }
+.loginform .btn { background: var(--accent); color: var(--accent-ink); }
+.loginsub { margin: -8px 0 6px; text-align: center; color: var(--muted); font-weight: 700; }
+.loading { text-align: center; color: var(--muted); padding: 60px 0; }
+</style>
+<script src="config.js"></script>
+<script src="backend.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Studio 158<small>Planning des publications</small></h1>
+    <span class="sync" id="sync"></span>
+  </header>
+  <main id="view"><div class="loading">Chargement…</div></main>
+</div>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="in" role="tablist">
+    <button role="tab" data-tab="valider" aria-selected="true"><span class="ic">✅</span>À valider<span class="badge" id="badge" hidden></span></button>
+    <button role="tab" data-tab="planning" aria-selected="false"><span class="ic">🗓️</span>Planning</button>
+    <button role="tab" data-tab="idees" aria-selected="false"><span class="ic">💡</span>Idées</button>
+    <button role="tab" data-tab="publies" aria-selected="false"><span class="ic">📸</span>Publiés</button>
+    <button role="tab" data-tab="reglages" aria-selected="false"><span class="ic">⚙️</span>Réglages</button>
+  </div>
+</nav>
+
+<script>
+"use strict";
+/* ---------- Données ---------- */
+const S = { posts: {}, ideas: {}, meta: {}, loaded: new Set(), tab: "valider", open: null, editing: {}, offline: false };
+const DEFAULT_SETTINGS = { slots: [{ dow: 2, time: "20:30" }, { dow: 5, time: "12:30" }], mode: "prudent" };
+const TYPES = { ongles: { e: "💅", n: "Ongles" }, cils: { e: "👁️", n: "Cils" }, pieds: { e: "🦶", n: "Pieds" } };
+const STATUS = {
+  a_valider: "À valider", a_retravailler: "En retouche", valide: "Programmé",
+  publie: "Publié", erreur: "Problème", refuse: "Refusé"
+};
+const QUICK = ["Légende plus courte", "Plus chaleureux", "Moins d'emojis", "Ajouter un appel à réserver", "Recadrer plus serré", "Photo plus lumineuse", "Prendre une autre photo"];
+let db = null;
+
+const settings = () => Object.assign({}, DEFAULT_SETTINGS, S.meta.settings || {});
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const $ = (sel, el) => (el || document).querySelector(sel);
+
+/* ---------- Dates ---------- */
+const pad = n => String(n).padStart(2, "0");
+const iso = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+const parse = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+const today = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const monday = d => addDays(d, -((d.getDay() + 6) % 7));
+const DAYS = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const fDay = s => s ? cap(parse(s).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })) : "Date à choisir";
+const fShort = s => parse(s).toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+const fTime = t => t ? t.replace(":", " h ").replace(/ h 00$/, " h") : "";
+const fWhen = p => fDay(p.date) + (p.time ? " · " + fTime(p.time) : "");
+const fAgo = ts => { if (!ts) return ""; const d = new Date(ts); return d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " à " + pad(d.getHours()) + " h " + pad(d.getMinutes()); };
+
+/* Fêtes et saisons : ce que Claude anticipe (2 à 3 semaines avant). */
+function easter(y) {
+  const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31), day = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(y, month - 1, day);
+}
+const nthDow = (y, m, dow, n) => { const d = new Date(y, m, 1); d.setDate(1 + ((dow - d.getDay() + 7) % 7) + 7 * (n - 1)); return d; };
+const lastDow = (y, m, dow) => { const d = new Date(y, m + 1, 0); d.setDate(d.getDate() - ((d.getDay() - dow + 7) % 7)); return d; };
+function events(y) {
+  const pent = addDays(easter(y), 49);
+  let meres = lastDow(y, 4, 0);
+  if (iso(meres) === iso(pent)) meres = addDays(meres, 7);
+  return [
+    { d: new Date(y, 1, 14), e: "💖", n: "Saint-Valentin", lead: 21 },
+    { d: nthDow(y, 2, 0, 1), e: "🌷", n: "Fête des grands-mères", lead: 14 },
+    { d: new Date(y, 2, 20), e: "🌸", n: "Printemps", lead: 10 },
+    { d: easter(y), e: "🐣", n: "Pâques", lead: 14 },
+    { d: meres, e: "💐", n: "Fête des mères (cartes cadeaux)", lead: 21 },
+    { d: new Date(y, 5, 21), e: "☀️", n: "Été (saison des pieds)", lead: 21 },
+    { d: new Date(y, 8, 1), e: "🎒", n: "Rentrée", lead: 10 },
+    { d: new Date(y, 8, 22), e: "🍂", n: "Automne", lead: 10 },
+    { d: new Date(y, 9, 31), e: "🎃", n: "Halloween", lead: 14 },
+    { d: addDays(nthDow(y, 10, 4, 4), 1), e: "🛍️", n: "Black Friday", lead: 10 },
+    { d: new Date(y, 11, 21), e: "❄️", n: "Hiver", lead: 7 },
+    { d: new Date(y, 11, 25), e: "🎄", n: "Noël (cartes cadeaux)", lead: 28 },
+    { d: new Date(y, 11, 31), e: "🥂", n: "Nouvel An", lead: 14 }
+  ];
+}
+function upcomingEvents(days) {
+  const t = today(), end = addDays(t, days), y = t.getFullYear();
+  return events(y).concat(events(y + 1)).filter(e => e.d >= t && e.d <= end).sort((a, b) => a.d - b.d);
+}
+
+/* ---------- Tri des posts ---------- */
+const postList = () => Object.entries(S.posts).map(([id, p]) => Object.assign({ id }, p));
+const byWhen = (a, b) => ((a.date || "9999") + (a.time || "")).localeCompare((b.date || "9999") + (b.time || ""));
+const toValidate = () => postList().filter(p => p.status === "a_valider" || p.status === "a_retravailler" || p.status === "erreur").sort(byWhen);
+
+/* ---------- Enregistrement ---------- */
+async function save(col, id, data, msg) {
+  S[col][id] = data; render();
+  try {
+    await db.collection(col).doc(id).set(data);
+    if (msg) toast(msg);
+  } catch (e) {
+    toast("Pas enregistré : vérifie ta connexion et réessaie.");
+  }
+}
+async function remove(col, id, msg) {
+  delete S[col][id]; render();
+  try { await db.collection(col).doc(id).delete(); if (msg) toast(msg); }
+  catch (e) { toast("Pas supprimé : vérifie ta connexion."); }
+}
+function updatePost(id, patch, action, text, msg) {
+  const p = Object.assign({}, S.posts[id], patch);
+  const now = new Date().toISOString();
+  p.updatedAt = now;
+  p.history = (p.history || []).concat(action ? [{ at: now, by: "moi", action, text: text || "" }] : []).slice(-30);
+  save("posts", id, p, msg);
+}
+
+/* ---------- Rendu ---------- */
+let toastTimer = 0;
+function toast(msg) {
+  let t = $(".toast");
+  if (!t) { t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); document.body.appendChild(t); }
+  t.textContent = msg; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2600);
+}
+
+function photo(p, cls) {
+  return p.image ? `<img src="${esc(p.image)}" alt="Photo du post${p.theme ? " : " + esc(p.theme) : ""}" loading="lazy">` : `<div class="${cls || "none"}">${TYPES[p.type] ? TYPES[p.type].e : "📷"} Photo en préparation</div>`;
+}
+
+function postCard(p, full) {
+  const ed = S.editing[p.id] || {};
+  const v = (f, dflt) => ed.vals && ed.vals[f] != null ? ed.vals[f] : dflt;
+  const T = TYPES[p.type];
+  const st = p.status;
+  const last = (p.history || []).filter(h => h.action === "ameliorer").pop();
+  const canEdit = st !== "publie" && st !== "refuse";
+  let html = `<article class="post" data-id="${esc(p.id)}">
+    <div class="ph">${photo(p)}
+      <div class="chips">${T ? `<span class="chip">${T.e} ${T.n}</span>` : ""}${p.theme ? `<span class="chip">${esc(p.theme)}</span>` : ""}<span class="chip">${esc(STATUS[st] || st)}</span></div>
+    </div>
+    <div class="bd">
+      <div class="when"><span class="d">🗓️ ${esc(fWhen(p))}</span>${canEdit && !ed.date ? `<button class="linkbtn" data-act="edit-date">Changer</button>` : ""}</div>`;
+  if (ed.date) {
+    html += `<div class="edit">
+      <div class="row"><label class="f">Jour<input class="inp" type="date" data-f="date" value="${esc(v("date", p.date || ""))}" min="${iso(today())}"></label>
+      <label class="f">Heure<input class="inp" type="time" data-f="time" value="${esc(v("time", p.time || "20:30"))}" step="300"></label></div>
+      <div class="actions two"><button class="btn ghost" data-act="cancel-date">Annuler</button><button class="btn primary" data-act="save-date">Enregistrer</button></div>
+    </div>`;
+  }
+  if (ed.caption) {
+    html += `<div class="edit"><label class="f">Texte du post<textarea class="inp" data-f="caption" rows="10">${esc(v("caption", p.caption))}</textarea></label>
+      <div class="actions two"><button class="btn ghost" data-act="cancel-caption">Annuler</button><button class="btn primary" data-act="save-caption">Enregistrer</button></div></div>`;
+  } else {
+    html += `<p class="caption${full ? "" : " clamp"}">${esc(p.caption || "Légende en préparation…")}</p>`;
+    if (canEdit && p.caption) html += `<button class="linkbtn" data-act="edit-caption">✏️ Modifier le texte moi-même</button>`;
+  }
+  if (p.why) html += `<div class="note soft"><b>Pourquoi ce post</b>${esc(p.why)}</div>`;
+  if (st === "a_retravailler") html += `<div class="note info"><b>Claude retravaille ce post</b>Ta demande : « ${esc(last ? last.text : p.feedback || "")} ». Il revient ici dès que c'est prêt (passage chaque soir) et tu reçois un mail.</div>`;
+  else if (last && st === "a_valider" && (p.history || []).slice(-1)[0].by === "claude") html += `<div class="note info"><b>Version retravaillée</b>Ta demande était : « ${esc(last.text)} »</div>`;
+  if (st === "erreur") html += `<div class="note err"><b>La publication a échoué</b>${esc(p.error || "Erreur inconnue")}</div>`;
+  if (st === "valide") html += `<div class="note ok"><b>Programmé</b>Il partira tout seul sur Instagram et Facebook ${esc(fWhen(p))}.</div>`;
+  if (st === "publie") html += `<div class="note soft"><b>Publié le ${esc(fAgo(p.publishedAt))}</b>${p.permalink ? `<a href="${esc(p.permalink)}" target="_blank" rel="noopener">Voir sur Instagram</a>` : ""}</div>`;
+
+  if (ed.improve) {
+    html += `<div class="edit">
+      <div class="quick">${QUICK.map(q => `<button type="button" data-act="quick" data-q="${esc(q)}" class="${(ed.chips || []).includes(q) ? "on" : ""}">${esc(q)}</button>`).join("")}</div>
+      <label class="f">Ce que tu veux changer<textarea class="inp" data-f="feedback" placeholder="Ex. : parle du gainage, et mets « idée cadeau » à la fin">${esc(ed.text || "")}</textarea></label>
+      <div class="actions two"><button class="btn ghost" data-act="cancel-improve">Annuler</button><button class="btn primary" data-act="send-improve">Envoyer à Claude</button></div>
+    </div>`;
+  } else if (ed.refuse) {
+    html += `<div class="edit"><label class="f">Pourquoi ? (facultatif, ça aide Claude)<input class="inp" data-f="reason" value="${esc(v("reason", ""))}" placeholder="Ex. : photo pas assez nette"></label>
+      <div class="actions two"><button class="btn ghost" data-act="cancel-refuse">Garder</button><button class="btn primary" data-act="send-refuse">Refuser ce post</button></div></div>`;
+  } else if (st === "a_valider") {
+    html += `<div class="actions"><button class="btn ok" data-act="validate">✓ Valider</button><button class="btn" data-act="improve">✏️ Améliorer</button><button class="btn ghost" data-act="refuse">✕ Refuser</button></div>`;
+  } else if (st === "a_retravailler") {
+    html += `<div class="actions one"><button class="btn ghost" data-act="undo-improve">Annuler ma demande</button></div>`;
+  } else if (st === "valide") {
+    html += `<div class="actions two"><button class="btn" data-act="improve">✏️ Améliorer</button><button class="btn ghost" data-act="unvalidate">Ne plus programmer</button></div>`;
+  } else if (st === "erreur") {
+    html += `<div class="actions two"><button class="btn ok" data-act="retry">Réessayer</button><button class="btn ghost" data-act="refuse">Abandonner</button></div>`;
+  }
+  return html + `</div></article>`;
+}
+
+function viewValider() {
+  const list = toValidate();
+  const mode = settings().mode;
+  let h = "";
+  if (!list.length) {
+    const next = postList().filter(p => p.status === "valide").sort(byWhen)[0];
+    h += `<div class="empty"><div class="big">🎉</div><b>Rien à valider</b><br>La prochaine série de propositions arrive lundi matin.${next ? `<br><br>Prochain post : <b>${esc(fWhen(next))}</b>` : ""}</div>`;
+  } else {
+    const wait = list.filter(p => p.status !== "a_retravailler").length, redo = list.length - wait;
+    h += `<p class="sub">${wait ? wait + " post" + (wait > 1 ? "s" : "") + " à regarder. " : ""}${redo ? redo + " en retouche chez Claude. " : ""}${mode === "auto" ? "Mode autonome : sans réponse, ils partent quand même à leur date." : "Mode prudent : rien ne part sans ton ✓."}</p>`;
+    h += list.map(p => postCard(p)).join("");
+  }
+  return h;
+}
+
+function viewPlanning() {
+  const t = today(), start = monday(t);
+  const posts = postList().filter(p => p.status !== "refuse" && p.status !== "publie" && p.date).sort(byWhen);
+  const undated = postList().filter(p => p.status !== "refuse" && p.status !== "publie" && !p.date);
+  const ideas = Object.entries(S.ideas).map(([id, x]) => Object.assign({ id }, x)).filter(x => x.date && !x.done);
+  const evs = upcomingEvents(70);
+  const lastPost = posts.length ? parse(posts[posts.length - 1].date) : t;
+  const weeks = Math.max(4, Math.ceil((lastPost - start) / 864e5 / 7) + 1);
+  let h = `<p class="sub">Tout ce qui est prévu, semaine par semaine. Touche un post pour le voir en grand ou changer sa date.</p>`;
+  for (let w = 0; w < weeks; w++) {
+    const a = addDays(start, 7 * w), b = addDays(a, 6), A = iso(a), B = iso(b);
+    const ps = posts.filter(p => p.date >= A && p.date <= B);
+    const es = evs.filter(e => iso(e.d) >= A && iso(e.d) <= B);
+    const leads = evs.filter(e => { const l = iso(addDays(e.d, -e.lead)); return l >= A && l <= B; });
+    const is = ideas.filter(x => x.date >= A && x.date <= B);
+    const label = w === 0 ? "Cette semaine" : w === 1 ? "Semaine prochaine" : "Semaine du " + a.toLocaleDateString("fr-FR", { day: "numeric", month: "long" });
+    h += `<section class="week"><h3>${label} · ${fShort(A)} → ${fShort(B)}</h3>`;
+    h += es.map(e => `<div class="ev"><span class="e">${e.e}</span>${esc(e.n)} · ${e.d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric" })}</div>`).join("");
+    h += leads.filter(e => !es.includes(e)).map(e => `<div class="ev"><span class="e">${e.e}</span>Claude commence à préparer : ${esc(e.n)} (${fShort(iso(e.d))})</div>`).join("");
+    h += is.map(x => `<div class="ev idea"><span class="e">💡</span>${esc(x.text)} · ${esc(fDay(x.date))}</div>`).join("");
+    h += ps.map(item).join("");
+    if (!ps.length && !es.length && !is.length && !leads.length) h += `<div class="t2" style="color:var(--muted);font-size:13px;padding:2px 2px 8px">Rien de prévu pour l'instant.</div>`;
+    h += `</section>`;
+  }
+  if (undated.length) h += `<section class="week"><h3>Sans date</h3>${undated.map(item).join("")}</section>`;
+  return h;
+}
+function item(p) {
+  const T = TYPES[p.type];
+  return `<button class="item" data-open="${esc(p.id)}">
+    <span class="th">${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy">` : (T ? T.e : "📷")}</span>
+    <span class="tx"><span class="t1">${esc(fWhen(p))}</span><span class="t2">${esc((p.caption || "").split("\n")[0] || "Légende en préparation")}</span></span>
+    <span class="pill ${esc(p.status)}">${esc(STATUS[p.status] || p.status)}</span>
+  </button>`;
+}
+
+function viewIdees() {
+  const ideas = Object.entries(S.ideas).map(([id, x]) => Object.assign({ id }, x)).sort((a, b) => (a.done - b.done) || (a.date || "9999").localeCompare(b.date || "9999"));
+  const ed = S.editing.__idea || {};
+  let h = `<h2 class="sec">Tes idées</h2><p class="sub">Une promo, un changement de tarif, un thème à ne pas rater… Claude les prend en compte dans ses propositions.</p>`;
+  h += `<div class="card"><form id="ideaform" class="list" style="gap:10px">
+    <label class="f">L'idée<textarea class="inp" name="text" rows="2" placeholder="Ex. : rappeler les cartes cadeaux pour Noël" required>${esc(ed.text || "")}</textarea></label>
+    <div class="row"><label class="f">Pour quand ? (facultatif)<input class="inp" type="date" name="date" value="${esc(ed.date || "")}"></label>
+    <label class="f">Type<select class="inp" name="type"><option value="">Peu importe</option><option value="ongles">💅 Ongles</option><option value="cils">👁️ Cils</option><option value="pieds">🦶 Pieds</option></select></label></div>
+    <button class="btn primary" type="submit">+ Ajouter l'idée</button></form></div>`;
+  if (ideas.length) {
+    h += `<div class="card"><div class="list">${ideas.map(x => `<div class="li"${x.done ? ' style="opacity:.55"' : ""}><span class="e">${x.done ? "✔️" : "💡"}</span>
+      <span class="tx"><span class="t1">${esc(x.text)}</span><span class="t2">${x.date ? esc(fDay(x.date)) : "Quand ça tombe bien"}${x.type && TYPES[x.type] ? " · " + TYPES[x.type].n : ""}${x.done ? " · utilisée" : ""}</span></span>
+      <button class="x" data-del-idea="${esc(x.id)}" aria-label="Supprimer l'idée">✕</button></div>`).join("")}</div></div>`;
+  }
+  const evs = upcomingEvents(150);
+  h += `<h2 class="sec">À venir</h2><p class="sub">Les fêtes et saisons que Claude anticipe tout seul, avec des photos des dossiers correspondants du Drive.</p>`;
+  h += `<div class="card"><div class="list">${evs.map(e => `<div class="li"><span class="e">${e.e}</span><span class="tx"><span class="t1">${esc(e.n)}</span>
+    <span class="t2">${e.d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })} · posts dès le ${fShort(iso(addDays(e.d, -e.lead)))}</span></span></div>`).join("")}</div></div>`;
+  return h;
+}
+
+function viewPublies() {
+  const pub = postList().filter(p => p.status === "publie").sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""));
+  const ref = postList().filter(p => p.status === "refuse").sort((a, b) => (b.updatedAt || "").localeCompare(a.updatedAt || "")).slice(0, 10);
+  let h = `<h2 class="sec">Publiés</h2>`;
+  h += pub.length ? pub.map(item).join("") : `<div class="empty"><div class="big">📸</div>Aucun post publié par le système pour l'instant.</div>`;
+  if (ref.length) h += `<h2 class="sec">Refusés récemment</h2><p class="sub">Gardés pour que Claude apprenne ce que tu n'aimes pas.</p>` + ref.map(item).join("");
+  return h;
+}
+
+function viewReglages() {
+  const s = settings();
+  let h = `<h2 class="sec">Validation</h2><div class="card">
+    <div class="seg" role="radiogroup"><button data-mode="prudent" class="${s.mode !== "auto" ? "on" : ""}">🛡️ Prudent</button><button data-mode="auto" class="${s.mode === "auto" ? "on" : ""}">🚀 Autonome</button></div>
+    <p class="sub" style="margin:10px 0 0">${s.mode === "auto" ? "Un post non validé part quand même à sa date. Tu peux toujours le refuser avant." : "Rien ne part sans ton ✓. Un post non validé à temps est décalé au créneau suivant."}</p></div>`;
+  h += `<h2 class="sec">Créneaux de publication</h2><p class="sub">Les jours et heures proposés par défaut (${s.slots.length} post${s.slots.length > 1 ? "s" : ""} par semaine). Tu peux toujours changer un post en particulier.</p><div class="card">`;
+  h += s.slots.map((sl, i) => `<div class="slot"><select class="inp" data-slot="${i}" data-k="dow">${[1, 2, 3, 4, 5, 6, 0].map(d => `<option value="${d}"${d === sl.dow ? " selected" : ""}>${DAYS[d]}</option>`).join("")}</select>
+    <input class="inp" type="time" step="300" data-slot="${i}" data-k="time" value="${esc(sl.time)}"><button class="x" data-del-slot="${i}" aria-label="Retirer ce créneau">✕</button></div>`).join("");
+  h += `<button class="btn ghost" data-act="add-slot" style="width:100%">+ Ajouter un créneau</button></div>`;
+  h += `<h2 class="sec">Comment ça marche</h2><div class="card"><div class="list">
+    <div class="li"><span class="e">📥</span><span class="tx"><span class="t1">Les photos</span><span class="t2">Ta maman ou toi déposez en vrac dans « À déposer » sur le Drive. Claude les trie.</span></span></div>
+    <div class="li"><span class="e">📨</span><span class="tx"><span class="t1">Le lundi</span><span class="t2">Claude prépare les posts de la semaine suivante et t'envoie un mail.</span></span></div>
+    <div class="li"><span class="e">✏️</span><span class="tx"><span class="t1">Chaque soir</span><span class="t2">Il retravaille les posts pour lesquels tu as demandé une amélioration.</span></span></div>
+    <div class="li"><span class="e">🚀</span><span class="tx"><span class="t1">Au créneau</span><span class="t2">Les posts programmés partent sur Instagram et Facebook.</span></span></div>
+  </div></div>`;
+  h += `<button class="btn ghost" data-act="logout" style="width:100%;margin:6px 0 20px">Me déconnecter</button>`;
+  return h;
+}
+
+function render() {
+  if (!db) return;
+  const n = toValidate().filter(p => p.status !== "a_retravailler").length;
+  const b = $("#badge"); b.hidden = !n; b.textContent = n;
+  document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", String(x.dataset.tab === S.tab)));
+  const views = { valider: viewValider, planning: viewPlanning, idees: viewIdees, publies: viewPublies, reglages: viewReglages };
+  const focus = document.activeElement && document.activeElement.dataset && document.activeElement.dataset.f;
+  $("#view").innerHTML = views[S.tab]();
+  renderSheet();
+  if (focus) { const el = document.querySelector(`[data-f="${focus}"]`); if (el) { el.focus(); if (el.setSelectionRange && el.value) el.setSelectionRange(el.value.length, el.value.length); } }
+}
+
+function renderSheet() {
+  let sh = $(".sheet");
+  const p = S.open && S.posts[S.open] ? Object.assign({ id: S.open }, S.posts[S.open]) : null;
+  if (!p) { if (sh) sh.remove(); return; }
+  if (!sh) { sh = document.createElement("div"); sh.className = "sheet"; sh.addEventListener("click", ev => { if (ev.target === sh) { S.open = null; renderSheet(); } }); document.body.appendChild(sh); }
+  sh.innerHTML = `<div class="pan" role="dialog" aria-modal="true" aria-label="Détail du post"><div class="grab"></div><div class="close"><button class="linkbtn" data-act="close">Fermer</button></div>${postCard(p, true)}</div>`;
+}
+
+/* ---------- Actions ---------- */
+function onInput(ev) {
+  const f = ev.target.dataset.f; if (!f) return;
+  const card = ev.target.closest("[data-id]"); if (!card) return;
+  const ed = S.editing[card.dataset.id] = S.editing[card.dataset.id] || {};
+  if (f === "feedback") ed.text = ev.target.value;
+  else (ed.vals = ed.vals || {})[f] = ev.target.value;
+}
+function onClick(ev) {
+  const t = ev.target.closest("button, [data-open]"); if (!t) return;
+  if (t.dataset.open) { S.open = t.dataset.open; renderSheet(); return; }
+  if (t.dataset.tab) { S.tab = t.dataset.tab; S.open = null; render(); scrollTo(0, 0); return; }
+  if (t.dataset.mode) { saveSettings({ mode: t.dataset.mode }, t.dataset.mode === "auto" ? "Mode autonome activé" : "Mode prudent activé"); return; }
+  if (t.dataset.delSlot) { const s = settings(); if (s.slots.length <= 1) { toast("Garde au moins un créneau."); return; } saveSettings({ slots: s.slots.filter((_, i) => i !== +t.dataset.delSlot) }, "Créneau retiré"); return; }
+  if (t.dataset.delIdea) { remove("ideas", t.dataset.delIdea, "Idée supprimée"); return; }
+  const act = t.dataset.act; if (!act) return;
+  if (act === "close") { S.open = null; renderSheet(); return; }
+  if (act === "logout") { StudioBackend.logout(); return; }
+  if (act === "add-slot") { const s = settings(); saveSettings({ slots: s.slots.concat([{ dow: 4, time: "20:30" }]) }, "Créneau ajouté"); return; }
+  const card = t.closest("[data-id]"); if (!card) return;
+  const id = card.dataset.id, p = S.posts[id];
+  const ed = S.editing[id] = S.editing[id] || {};
+  const val = f => { const el = card.querySelector(`[data-f="${f}"]`); return el ? el.value.trim() : ""; };
+  switch (act) {
+    case "validate": updatePost(id, { status: "valide", validatedAt: new Date().toISOString() }, "valider", "", "✓ Validé : il partira " + fWhen(p)); break;
+    case "improve": S.editing[id] = { improve: true, chips: [], text: "" }; render(); break;
+    case "quick": {
+      const q = t.dataset.q; ed.chips = ed.chips || [];
+      ed.chips = ed.chips.includes(q) ? ed.chips.filter(x => x !== q) : ed.chips.concat([q]);
+      ed.text = val("feedback"); render(); break;
+    }
+    case "send-improve": {
+      const text = [].concat(ed.chips || [], val("feedback") ? [val("feedback")] : []).join(". ");
+      if (!text) { toast("Dis à Claude ce que tu veux changer."); return; }
+      delete S.editing[id];
+      updatePost(id, { status: "a_retravailler", feedback: text }, "ameliorer", text, "Envoyé : Claude le retravaille ce soir");
+      break;
+    }
+    case "undo-improve": updatePost(id, { status: "a_valider", feedback: "" }, "annuler", "", "Demande annulée"); break;
+    case "refuse": S.editing[id] = { refuse: true }; render(); break;
+    case "send-refuse": { const r = val("reason"); delete S.editing[id]; if (S.open === id) S.open = null; updatePost(id, { status: "refuse", refuseReason: r }, "refuser", r, "Refusé : Claude en proposera un autre"); break; }
+    case "unvalidate": updatePost(id, { status: "a_valider" }, "deprogrammer", "", "Plus programmé : il revient dans « À valider »"); break;
+    case "retry": updatePost(id, { status: "valide", error: "" }, "reessayer", "", "Il sera retenté au prochain passage"); break;
+    case "edit-date": ed.date = true; render(); break;
+    case "cancel-date": delete ed.date; ed.vals = {}; render(); break;
+    case "save-date": {
+      const d = val("date"), tm = val("time");
+      if (!d || !tm) { toast("Choisis un jour et une heure."); return; }
+      if (new Date(d + "T" + tm) < new Date()) { toast("Cette date est déjà passée."); return; }
+      delete ed.date; ed.vals = {};
+      updatePost(id, { date: d, time: tm }, "date", d + " " + tm, "Nouvelle date : " + fDay(d) + " · " + fTime(tm));
+      break;
+    }
+    case "edit-caption": ed.caption = true; render(); break;
+    case "cancel-caption": delete ed.caption; ed.vals = {}; render(); break;
+    case "save-caption": { const c = card.querySelector('[data-f="caption"]').value; delete ed.caption; ed.vals = {}; updatePost(id, { caption: c, captionEditedByMe: true }, "texte", "", "Texte enregistré"); break; }
+    case "cancel-improve": case "cancel-refuse": delete S.editing[id]; render(); break;
+  }
+}
+function saveSettings(patch, msg) { save("meta", "settings", Object.assign({}, settings(), patch), msg); }
+
+document.addEventListener("click", onClick);
+document.addEventListener("input", onInput);
+document.addEventListener("change", ev => {
+  const el = ev.target;
+  if (el.dataset.slot != null) {
+    const s = settings(), slots = s.slots.map(x => Object.assign({}, x));
+    slots[+el.dataset.slot][el.dataset.k] = el.dataset.k === "dow" ? +el.value : el.value;
+    slots.sort((a, b) => ((a.dow + 6) % 7) - ((b.dow + 6) % 7) || a.time.localeCompare(b.time));
+    saveSettings({ slots }, "Créneaux enregistrés");
+  }
+});
+document.addEventListener("submit", ev => {
+  if (ev.target.id !== "ideaform") return;
+  ev.preventDefault();
+  const fd = new FormData(ev.target), text = String(fd.get("text") || "").trim();
+  if (!text) return;
+  const id = "i" + Date.now().toString(36);
+  S.editing.__idea = {};
+  save("ideas", id, { text, date: fd.get("date") || null, type: fd.get("type") || null, done: false, createdAt: new Date().toISOString() }, "Idée ajoutée 💡");
+});
+document.addEventListener("keydown", ev => { if (ev.key === "Escape" && S.open) { S.open = null; renderSheet(); } });
+
+/* ---------- Démarrage ---------- */
+(async function start() {
+  try { db = await StudioBackend.ready(); } catch (e) { $("#view").innerHTML = `<div class="empty">Impossible de se connecter.</div>`; return; }
+  ["posts", "ideas", "meta"].forEach(col => db.collection(col).onSnapshot(snap => {
+    const o = {}; snap.docs.forEach(d => { o[d.id] = d.data(); });
+    S[col] = o; S.loaded.add(col); S.offline = false;
+    $("#sync").textContent = "";
+    if (S.loaded.size === 3) render();
+  }, () => { S.offline = true; $("#sync").textContent = "⚠️ hors ligne"; if (S.loaded.size === 3) render(); }));
+})();
+</script>
+</body>
+</html>
