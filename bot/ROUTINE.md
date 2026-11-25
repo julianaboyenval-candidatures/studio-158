@@ -24,25 +24,33 @@ Lis **voix-marque.md** et **prestations.md** en entier avant d'écrire la moindr
 
 Toutes les dates et heures sont en **heure de Paris**.
 
-## 1. Trier le dossier « À déposer »
+## 1. Cataloguer les nouvelles photos
 
-Pour chaque image (jpg, jpeg, png, heic, webp) du dossier À déposer :
-1. Télécharge-la dans /tmp/s158/drive/ et **regarde-la** (outil Read sur le fichier).
+Les photos sont déposées dans « À déposer » (et parfois directement dans les dossiers de thème) par le compte du
+salon : **tu n'as pas le droit de les déplacer**, ne l'essaie pas. Le tri se fait dans le **catalogue** (collection
+`photos`), qui est la référence. Ne supprime et ne modifie jamais un fichier du Drive.
+
+Cherche toutes les images (`mimeType contains 'image/'`) sous le dossier racine (`'<racine>' in ancestors`, avec la
+pagination `nextPageToken`) qui ne sont **pas encore** dans `photos`. Traite-en **au plus 15 par passage**, les plus
+récentes d'abord (modifiedTime). Pour chacune :
+1. Regarde-la : `read_file_content` (aperçu) suffit pour juger. Ne télécharge le fichier complet que pour une photo
+   que tu vas vraiment utiliser dans un post (étape 3).
 2. Décide :
    - `type` : `ongles` (mains), `pieds` ou `cils` ;
-   - `theme` : pour les ongles, un des sous-dossiers de 💅 Ongles (Noël, Nouvel An, Saint-Valentin, Printemps,
-     Fête des mères, Été, Automne, Halloween, Général) ; pour les cils, Général ou Fêtes & saisons ; les pieds vont
-     dans Ongles/Été s'ils ont un thème estival, sinon dans Ongles/Général avec `type: pieds` ;
-   - `annee` : date de prise de vue (métadonnées de l'image ou du fichier Drive), sinon date de dépôt ;
+   - `theme` : Noël, Nouvel An, Saint-Valentin, Printemps, Fête des mères, Été, Automne, Halloween, Hiver ou Général
+     (un thème seulement si la déco le montre clairement : sapins, cœurs, citrouilles, flocons… ; une couleur seule
+     ne suffit pas) ; si la photo est dans un dossier de thème, reprends ce thème ;
+   - `annee` : date de prise de vue (métadonnées `imageMediaMetadata.time` si disponibles, sinon `modifiedTime`) ;
    - `qualite` de 1 à 5 (netteté, lumière, cadrage, propreté du fond) et une `description` courte (couleurs,
      technique, détails visibles, ex. « gainage rouge cerise, petites perles argentées, ongles carrés courts ») ;
-   - si ce n'est pas une photo de prestation (capture d'écran, photo floue inutilisable, doublon) : `qualite: 0`.
-3. Déplace le fichier dans `<Ongles|Cils>/<theme>/<annee>/` (crée le dossier de l'année s'il manque).
-4. Enregistre-la dans le catalogue : `python3.13 studio.py put photos <id_drive> fiche.json` avec
-   `{driveId, nom, type, theme, annee, qualite, description, chemin, ajouteLe, utiliseeDans: null}`.
+   - `qualite: 0` si ce n'est pas une photo de prestation (capture d'écran, floue, doublon quasi identique d'une autre).
+3. Enregistre : `python3.13 studio.py put photos <id_drive> fiche.json` avec
+   `{driveId, nom, type, theme, annee, qualite, description, prisLe, ajouteLe, utiliseeDans: null}`.
 
-Si une photo est déjà dans un dossier de thème mais absente du catalogue, ajoute-la au catalogue de la même façon
-(sans la déplacer). Fais ce rattrapage au plus pour 30 photos par passage.
+### Télécharger une photo complète (pour un post)
+Utilise `download_file_content`. Le contenu revient en base64 : s'il est enregistré dans un fichier de résultat
+d'outil, décode ce fichier avec python (`base64.b64decode`) vers `/tmp/s158/src/<id>.jpg` ; ne recopie jamais le
+base64 à la main. Vérifie que le fichier s'ouvre avec Pillow avant de continuer.
 
 ## 2. Retravailler les posts demandés
 
